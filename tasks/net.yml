@@ -1,7 +1,7 @@
 ---
 - name: Include kerberos task
-  include_tasks: kerberos.yml
   tags: ad_member
+  include_tasks: kerberos.yml
 
 - name: Join to the domain
   tags: ad_member
