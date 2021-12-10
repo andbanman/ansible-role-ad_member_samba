@@ -1,5 +1,6 @@
 galaxy_info:
   author: Andrew Banman
+  role_name: ad_member
   description: Join linux host to Active Directory
   company: PNRI
 
