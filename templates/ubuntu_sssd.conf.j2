@@ -8,8 +8,6 @@ domains = {{ ad_domain_l }}
 
 [domain/pnri.local]
 ad_hostname = {{ ansible_hostname }}.{{ ad_domain_l }}
-# For some unknown reason, FTP access is rejected. Turn off AD access checking.
-access_provider = permit
 default_shell = /bin/bash
 id_provider = ad
 fallback_homedir = /home/%u
