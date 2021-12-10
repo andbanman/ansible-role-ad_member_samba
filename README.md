@@ -1,4 +1,4 @@
-# ansible-role-ad
+# ansible-role-ad_member
 
 Join a Linux host to an Active Directory domain.
 
