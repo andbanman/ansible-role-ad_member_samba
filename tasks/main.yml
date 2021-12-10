@@ -1,0 +1,38 @@
+---
+- name: Install packages
+  tags: ad_member
+  package:
+    name: "{{ ad_kerberos_packages + ad_sssd_packages + ad_samba_packages + ad_pam_packages }}"
+    state: present
+
+- name: Include sssd.yml
+  tags: ad_member
+  include_tasks: sssd.yml
+
+- name: Include samba.yml
+  tags: ad_member
+  include_tasks: samba.yml
+
+- name: Include net.yml
+  tags: ad_member
+  include_tasks: net.yml
+
+- name: Include pam.yml
+  include_tasks: pam.yml
+  tags: ad_member
+
+# restart services so test gets up to date config
+- meta: flush_handlers
+
+- name: Query AD user
+  command: "id -u {{ ad_test_user }}"
+  register: ad_user_query
+  when: "ad_test_user is defined and ad_test_user_uid is defined"
+  changed_when: false
+
+- name: Test join was successful
+  when: "ad_test_user is defined and ad_test_user_uid is defined"
+  assert:
+    that:
+      - "ad_test_user_uid in ad_user_query.stdout"
+  ignore_errors: "{{ ansible_check_mode }}"

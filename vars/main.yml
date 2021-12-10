@@ -1,0 +1,16 @@
+---
+# Convenience variables
+ad_domain_l: "{{ ad_domain|lower }}"
+ad_domain_u: "{{ ad_domain|upper }}"
+
+# Packages
+# TODO switch on ansible_distribution
+ad_samba_packages: [samba, winbind, libnss-winbind]
+ad_pam_packages: [libpam-modules]
+ad_sssd_packages: [sssd, sssd-common, libnss-sss, libpam-sss]
+ad_kerberos_packages: [krb5-user]
+
+# Services
+ad_sssd_service_name: sssd
+ad_samba_service_name: smbd
+ad_winbind_service_name: winbind
