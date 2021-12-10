@@ -2,7 +2,7 @@
 - name: Install packages
   tags: ad_member
   package:
-    name: "{{ ad_kerberos_packages + ad_sssd_packages + ad_samba_packages + ad_pam_packages }}"
+    name: "{{ ad_member_kerberos_packages + ad_member_sssd_packages + ad_member_samba_packages + ad_member_pam_packages }}"
     state: present
 
 - name: Include sssd.yml
@@ -25,14 +25,14 @@
 - meta: flush_handlers
 
 - name: Query AD user
-  command: "id -u {{ ad_test_user }}"
-  register: ad_user_query
-  when: "ad_test_user is defined and ad_test_user_uid is defined"
+  command: "id -u {{ ad_member_test_user }}"
+  register: ad_member_user_query
+  when: "ad_member_test_user is defined and ad_member_test_user_uid is defined"
   changed_when: false
 
 - name: Test join was successful
-  when: "ad_test_user is defined and ad_test_user_uid is defined"
+  when: "ad_member_test_user is defined and ad_member_test_user_uid is defined"
   assert:
     that:
-      - "ad_test_user_uid in ad_user_query.stdout"
+      - "ad_member_test_user_uid in ad_member_user_query.stdout"
   ignore_errors: "{{ ansible_check_mode }}"

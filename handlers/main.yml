@@ -1,7 +1,7 @@
 ---
 - name: sssd restart
   service:
-    name: "{{ ad_sssd_service_name }}"
+    name: "{{ ad_member_sssd_service_name }}"
     state: restarted
 
 - name: samba reload config
@@ -9,10 +9,10 @@
 
 - name: samba restart
   service:
-    name: "{{ ad_samba_service_name }}"
+    name: "{{ ad_member_samba_service_name }}"
     state: restarted
 
 - name: winbind restart
   service:
-    name: "{{ ad_winbind_service_name }}"
+    name: "{{ ad_member_winbind_service_name }}"
     state: restarted

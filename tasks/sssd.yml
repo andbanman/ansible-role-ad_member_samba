@@ -4,7 +4,7 @@
 - name: Install sssd conf
   template:
     src: "{{ ansible_distribution|lower }}_sssd.conf.j2"
-    dest: "{{ ad_sssd_config_file }}"
+    dest: "{{ ad_member_sssd_config_file }}"
     owner: root
     group: root
     mode: '0600'
