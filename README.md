@@ -1,25 +1,23 @@
 # ansible-role-ad_member
 
-Join a Linux host to an Active Directory domain.
+Join a Linux host to an Active Directory domain as a domain member.
 
-Starting with Samba 4.8.0, winbind must be installed to resolve users and security groups from AD. Typically winbind and sssd are mutually exclusive, but sssd is preferred for , mapping ids. This role uses the winbind NSS backend to allow sssd and winbind to coexist.
+Configuring identity mapping between AD users and groups to Unix UID/GIGs is often the most difficult part of joining linux to AD. The two options are winbind and sssd, where sssd is preferred since it does not require a local database and is consistent accross hosts. Starting with Samba 4.8.0, winbind must be installed to connect to AD; strictly speaking this only affects hosts that will server samba file shares, and other hosts can continue to use sssd for system authentication (pam, nss, etc). Typically winbind and sssd are mutually exclusive, but this role uses the winbind nss backend to allow sssd and winbind to coexist.
+
+The resulting configuration integrates AD into Linux authentication stack with sssd and provides a full featured samba server for file sharing. Both `getent` and `wbinfo` should work to resolve users and groups from AD. 
 
 ## Variables
 ```
-# Required
+# REQUIRED
 ad_domain           # e.g. "my.domain"
 ad_workgroup        # e.g. "MYDOMAIN"
 ad_kerberos_user    # user capable of joining host to domain
-ad_kerberos_pass
+ad_kerberos_pass    # SECRET user password, should be kept in an encrypted vault.
+                    # no_log is used to prevent exposing the secret.
 
-# Optional
+# OPTIONAL
 ad_test_user        # user name to test join was successful
 ad_test_user_uid    # user id to test
 
-# Defaults
-ad_kerberos_method: "secrets and keytab"
-ad_winbind_domain_backend: nss
-ad_winbind_domain_range: "200000-2147483647"
-ad_winbind_default_backend: tdb
-ad_winbind_default_range: "10000-199999"
+# ... see defaults/ for other variables for advanced usage
 ```
