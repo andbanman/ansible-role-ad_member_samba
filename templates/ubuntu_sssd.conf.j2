@@ -4,10 +4,10 @@
 [sssd]
 services = nss, pam
 config_file_version = 2
-domains = {{ ad_domain_l }}
+domains = {{ ad_member_domain_l }}
 
 [domain/pnri.local]
-ad_hostname = {{ ansible_hostname }}.{{ ad_domain_l }}
+ad_hostname = {{ ansible_hostname }}.{{ ad_member_domain_l }}
 default_shell = /bin/bash
 id_provider = ad
 fallback_homedir = /home/%u

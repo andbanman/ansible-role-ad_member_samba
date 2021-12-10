@@ -13,15 +13,15 @@ A working AD domain with DNS and DHCP properly configured. In particular, this c
 ## Variables
 ```
 # REQUIRED
-ad_domain           # e.g. "my.domain"
-ad_workgroup        # e.g. "MYDOMAIN"
-ad_kerberos_user    # user capable of joining host to domain
-ad_kerberos_pass    # SECRET user password, should be kept in an encrypted vault.
-                    # no_log is used to prevent exposing the secret.
+ad_member_domain           # e.g. "my.domain"
+ad_member_workgroup        # e.g. "MYDOMAIN"
+ad_member_kerberos_user    # user capable of joining host to domain
+ad_member_kerberos_pass    # SECRET user password, should be kept in an encrypted vault.
+                           # no_log is used to prevent exposing the secret.
 
 # OPTIONAL
-ad_test_user        # user name to test join was successful
-ad_test_user_uid    # user id to test
+ad_member_test_user        # user name to test join was successful
+ad_member_test_user_uid    # user id to test
 
 # ... see defaults/ for other variables for advanced usage
 ```
