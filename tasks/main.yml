@@ -1,38 +1,38 @@
 ---
 - name: Install packages
-  tags: ad_member
+  tags: ad_member_samba
   package:
     name: "{{ ad_member_kerberos_packages + ad_member_sssd_packages + ad_member_samba_packages + ad_member_pam_packages }}"
     state: present
 
 - name: Include sssd.yml
-  tags: ad_member
+  tags: ad_member_samba
   include_tasks: sssd.yml
 
 - name: Include samba.yml
-  tags: ad_member
+  tags: ad_member_samba
   include_tasks: samba.yml
 
 - name: Include net.yml
-  tags: ad_member
+  tags: ad_member_samba
   include_tasks: net.yml
 
 - name: Include pam.yml
-  tags: ad_member
+  tags: ad_member_samba
   include_tasks: pam.yml
 
 # restart services so test gets up to date config
 - meta: flush_handlers
 
 - name: Query AD user
-  tags: ad_member
+  tags: ad_member_samba
   command: "id -u {{ ad_member_test_user }}"
   register: ad_member_user_query
   when: "ad_member_test_user is defined and ad_member_test_user_uid is defined"
   changed_when: false
 
 - name: Test join was successful
-  tags: ad_member
+  tags: ad_member_samba
   when: "ad_member_test_user is defined and ad_member_test_user_uid is defined"
   assert:
     that:

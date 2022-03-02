@@ -1,10 +1,10 @@
 ---
 - name: Include kerberos task
-  tags: ad_member
+  tags: ad_member_samba
   include_tasks: kerberos.yml
 
 - name: Join to the domain
-  tags: ad_member
+  tags: ad_member_samba
   # do not log to preserve password secrecy
   no_log: True
   shell: "net ads join -k -U {{ ad_member_kerberos_user }}%{{ ad_member_kerberos_pass }} osName={{ ansible_distribution }} osVer={{ ansible_distribution_version }}"

@@ -3,7 +3,7 @@
 
 - name: Enable PAM automatic homedir creation
   when: ad_member_automatic_homedir_creation
-  tags: ad_member
+  tags: ad_member_samba
   lineinfile:
     path: "{{ ad_member_pam_config_dir }}/common-session"
     insertbefore: '^session\s*required\s*pam_unix.so'

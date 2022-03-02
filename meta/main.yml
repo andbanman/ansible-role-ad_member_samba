@@ -1,7 +1,7 @@
 galaxy_info:
   author: Andrew Banman
-  role_name: ad_member
-  description: Join linux host to Active Directory
+  role_name: ad_member_samba
+  description: Join Linux Samba server to Active Directory
   company: PNRI
 
   # If the issue tracker for your role is not on github, uncomment the

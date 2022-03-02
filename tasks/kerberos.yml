@@ -1,6 +1,6 @@
 ---
 - name: Set default realm
-  tags: ad_member
+  tags: ad_member_samba
   lineinfile:
     path: "{{ ad_member_kerberos_config_path }}"
     regexp: '^\s*default_realm\s*='

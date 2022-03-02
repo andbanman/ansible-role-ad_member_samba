@@ -1,6 +1,6 @@
 ---
 - name: Configure samba
-  tags: ad_member
+  tags: ad_member_samba
   blockinfile:
     backup: yes
     path: "{{ ad_member_samba_config_file }}"
