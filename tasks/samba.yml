@@ -16,7 +16,6 @@
       idmap config * : range = {{ ad_member_winbind_default_range }}
       idmap config {{ ad_member_workgroup }} : backend = {{ ad_member_winbind_domain_backend }}
       idmap config {{ ad_member_workgroup }} : range = {{ ad_member_winbind_domain_range }}
-      dyndns_update = {{ ad_member_dyndns_update }}
   notify:
     - samba reload config
     - winbind restart
