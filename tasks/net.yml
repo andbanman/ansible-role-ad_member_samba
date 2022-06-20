@@ -3,10 +3,18 @@
   tags: ad_member_samba
   include_tasks: kerberos.yml
 
+# query domain
+- name: Test if domain is joined
+  tags: ad_member_samba
+  command: "net ads testjoin"
+  register: testjoin
+  changed: false
+
 - name: Join to the domain
+  when: 'testjoin.stdout_lines contains "Join is OK"'
   tags: ad_member_samba
   # do not log to preserve password secrecy
   no_log: True
-  shell: "net ads join -k -U {{ ad_member_kerberos_user }}%{{ ad_member_kerberos_pass }} osName={{ ansible_distribution }} osVer={{ ansible_distribution_version }}"
+  command: "net ads join -k -U {{ ad_member_kerberos_user }}%{{ ad_member_kerberos_pass }} osName={{ ansible_distribution }} osVer={{ ansible_distribution_version }}"
   notify:
     - sssd restart
