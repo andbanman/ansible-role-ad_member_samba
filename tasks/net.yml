@@ -8,10 +8,16 @@
   tags: ad_member_samba
   command: "net ads testjoin"
   register: testjoin
-  changed: false
+  changed_when: false
+
+- name: Show join status
+  tags: ad_member_samba
+  debug:
+    verbosity: 1
+    msg: "{{ testjoin }}"
 
 - name: Join to the domain
-  when: 'testjoin.stdout_lines contains "Join is OK"'
+  when: '"Join is OK" not in testjoin.stdout_lines'
   tags: ad_member_samba
   # do not log to preserve password secrecy
   no_log: True
