@@ -17,7 +17,7 @@
     msg: "{{ testjoin }}"
 
 - name: Join to the domain
-  when: '"Join is OK" not in testjoin.stdout_lines'
+  when: 'testjoin.stdout is defined and "Join is OK" not in testjoin.stdout_lines'
   tags: ad_member_samba
   # do not log to preserve password secrecy
   no_log: True

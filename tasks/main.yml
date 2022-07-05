@@ -33,8 +33,7 @@
 
 - name: Test join was successful
   tags: ad_member_samba
-  when: "ad_member_test_user is defined and ad_member_test_user_uid is defined"
+  when: "ad_member_user_query.stdout is defined ad_member_test_user is defined and ad_member_test_user_uid is defined"
   assert:
     that:
       - "ad_member_test_user_uid in ad_member_user_query.stdout"
-  ignore_errors: "{{ ansible_check_mode }}"
