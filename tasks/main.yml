@@ -28,12 +28,12 @@
   tags: ad_member_samba
   command: "id -u {{ ad_member_test_user }}"
   register: ad_member_user_query
-  when: "ad_member_test_user is defined and ad_member_test_user_uid is defined"
+  when: "not ansible_check_mode and ad_member_test_user is defined and ad_member_test_user_uid is defined"
   changed_when: false
 
 - name: Test join was successful
   tags: ad_member_samba
-  when: "ad_member_user_query.stdout is defined and ad_member_test_user is defined and ad_member_test_user_uid is defined"
+  when: "not ansible_check_mode and ad_member_user_query.stdout is defined and ad_member_test_user is defined and ad_member_test_user_uid is defined"
   assert:
     that:
       - "ad_member_test_user_uid in ad_member_user_query.stdout"
